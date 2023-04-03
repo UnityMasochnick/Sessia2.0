@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <title>Список заявок</title>
+</head>
+<body>
+<form action="" method="POST" >
+    {% csrf_token %}
+    <div class="container">
+    <h2>Список заявок</h2>
+    <table class="table_order">
+                <tr>
+                    <th>Тип заявки</th>
+                    <th>Подразделение</th>
+                    <th>Дата</th>
+                    <th>Время</th>
+                    <th>Статус</th>
+                    <th>Причина отклонения</th>
+                </tr>
+                {% for order in orders %}
+                <tr class="tr_norm">
+                    <td>{{ order.title_type_order }}</td>
+                    <td>{{ order.title_subunit }}</td>
+                    <td>{{ order.date }}</td>
+                    <td>{{ order.time }}</td>
+                    <td>{{ order.title_status }}</td>
+                    {% if order.cause_status == None %}
+                    <td></td>
+                    {% else %}
+                    <td> {{ order.cause_status }}</td>
+                    {% endif %}
+                </tr>
+        {% endfor %}
+    </table>
+    {{ orders }}
+</div>
+</form>
+</body>
+</html>

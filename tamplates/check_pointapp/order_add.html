@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Заявка</title>
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+</head>
+<body>
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+<div class="container">
+    <h2>Форма записи на посещение мероприятия</h2>
+    <div class="block__row">
+        <div class="block__item">
+            <div class="block__item_header">Информация для пропуска</div>
+            <div class="block__item_body block__item_body1">
+                Срок действия заявки:
+                <br>
+                c*<input type="date" id="in_datatime_begin_wish" name="in_datatime_begin_wish" min="{{ date_begin }}" max="{{ date_end }}" >
+                по<input type="date" id="in_datatime_end_wish" name="in_datatime_end_wish">
+                <br>
+                Цель посищения:
+                <select required name="id_target">
+                    {% for target in targets %}
+                    <option value="{{target.pk_target}}">{{ target.title_target }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+
+        <div class="block__item">
+            <div class="block__item_header">Принимающая сторона</div>
+            <div class="block__item_body">
+            Подразделение*
+                <br>
+                <select required name="id_subunit">
+                    {% for subunit in subunits %}
+                    <option value="{{subunit.pk_subunit}}">{{ subunit.title_subunit }}</option>
+                    {% endfor %}
+                </select>
+                <br>
+                ФИО
+                <br>
+                <select required name="id_employee">
+                    {% for employee in employees %}
+                    <option value="{{employee.pk_employee}}">{{employee.lastname}} {{employee.firstname}} {{employee.middlename}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </div>
+<div class="block__row">
+    <div class="block__item">
+        <div class="block__item_header">Информация о посетителе</div>
+        <div class="block__item_body block__item_body2">
+            <table>
+                <tr>
+                    <td class="td_or">Фамилия:*</td>
+                    <td class="td_or"><input required type="text" name="in_lastname"></td>
+                    <td class="td_or">Организация:</td>
+                    <td class="td_or"><input type="text" name="in_organization"></td>
+                    <td class="td_or" rowspan="4">
+                        <img src="{% static 'img/personal.jpg' %}" width="100" height="100">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="td_or">Имя:*</td>
+                    <td class="td_or"><input required type="text" name="in_firstname"></td>
+                    <td class="td_or">Примечание:*</td>
+                    <td class="td_or"><input required type="text" name="in_notice"></td>
+                </tr>
+                <tr>
+                    <td class="td_or">Отчество:</td>
+                    <td class="td_or"><input type="text" name="in_middlename"></td>
+                    <td class="td_or">Дата рождения:*</td>
+                    <td class="td_or"><input required type="date" name="in_date_of_birth" max="{{ min_date_of_birth }}"></td>
+                </tr>
+                <tr>
+                    <td class="td_or">Телефон:</td>
+                    <td class="td_or"><input type="text" name="in_telephone_number" pattern="^(\+7 \(?\d{3}\) \d{3}-\d{2}-\d{2})"></td>
+                    <td class="td_or">Серия:*</td>
+                    <td class="td_or"><input required type="text" name="in_passport_series" pattern="^([0-9]){4}$" ></td>
+                </tr>
+                <tr>
+                    <td class="td_or">E-mail:*</td>
+                    <td class="td_or"><input required type="email" name="in_email"></td>
+                    <td class="td_or">Номер:*</td>
+                    <td class="td_or"><input required type="text" name="in_passport_number"  pattern="^([0-9]){6}$" ></td>
+                    <td class="td_or">Загрузить фото <br> <input type="file" name="in_photo" accept=".jpg"></td>
+                </tr>
+            </table>
+
+        </div>
+    </div>
+</div>
+   <div class="block__row">
+    <div class="block__item">
+        <div  class="block__item_header">Прикрепляемые документы</div>
+        <div class="block__item_body">
+            <input required type="file" name="in_passport_scan" accept=".pdf" size="4194304">Прикрепить файл
+        </div>
+    </div>
+    <div class="block__item">
+        <div class=" block__item_body block__item_body3">
+            <a href="">Очистить форму</a>
+            <button type="submit" name="order_insert">Оформить заявку</button>
+
+        </div>
+    </div>
+</div>
+</div>
+    </form>
+<script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
+    <title>Главная</title>
+</head>
+<body>
+<p>Привет: {{request.session.appuser.login }}</p>
+<div class="container">
+  <div class="img__row">
+    <div class="img__item">
+      <a href="{% url 'order_add'%}">
+        <img src="{% static 'img/personal.jpg' %}" width="100" height="100">
+      </a>
+      <p>Личное посещение</p>
+      </div>
+      <div class="img__item">
+      <a href="">
+        <img src="{% static 'img/personal.jpg' %}" width="100" height="100">
+      </a>
+        <p>Групповое посещение</p>
+       </div>
+  </div>
+</div>
+
+</body>
+</html>
